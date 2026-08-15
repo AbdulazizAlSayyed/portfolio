@@ -3,210 +3,212 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Abdulaziz Al Sayyed — Computer Science graduate, AI & Data Science developer, and Full-Stack Developer." />
-  <title>Abdulaziz Al Sayyed | Portfolio</title>
+  <meta name="description" content="Abdulaziz Al Sayyed — Computer Science graduate specializing in AI, Machine Learning, Data Science and Full-Stack Development." />
+  <title>Abdulaziz Al Sayyed | AI &amp; Full-Stack Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="nav">
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="nav" id="siteNav">
     <a class="logo" href="#home">A<span>.</span></a>
-    <button class="menu-btn" aria-label="Open menu">☰</button>
-    <nav>
-      <a href="#home">Home</a>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav aria-label="Primary">
       <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
       <a href="#projects">Projects</a>
-      <a href="#certifications">Certifications</a>
       <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
+    <!-- ============ HERO ============ -->
     <section id="home" class="hero section">
       <div class="hero-copy">
-        <p class="eyebrow">COMPUTER SCIENCE • AI • FULL-STACK</p>
-        <h1>Hi, I'm <span>Abdulaziz.</span><br> I build useful digital products.</h1>
-        <p class="hero-text">
-          Computer Science graduate focused on AI, Data Science, and Full-Stack Development.
-          I enjoy turning ideas into clean, practical software.
+        <p class="eyebrow reveal">AI &amp; DATA SCIENCE • SOFTWARE ENGINEERING • FULL-STACK</p>
+        <h1 class="reveal" style="transition-delay:.08s">
+          <span class="line">Abdulaziz</span>
+          <span class="line">Al Sayyed<span class="dot">.</span></span>
+        </h1>
+        <p class="hero-text reveal" style="transition-delay:.18s">
+          Computer Science graduate building intelligent, production-minded software —
+          from LLM &amp; RAG systems and Arabic NLP to full-stack platforms and backend APIs.
+          Currently completing a Graduate Professional Diploma in AI &amp; Data Science at AUB.
         </p>
-        <div class="actions">
-          <a class="btn primary" href="#projects">View my work</a>
-          <a class="btn secondary" href="#contact">Contact me</a>
+        <div class="actions reveal" style="transition-delay:.26s">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn secondary" href="assets/Abdulaziz_AlSayyed_CV.pdf" download>Download CV</a>
+          <a class="btn secondary" href="#contact">Contact Me</a>
         </div>
-        <div class="socials">
-          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <div class="socials reveal" style="transition-delay:.34s">
+          <a href="https://github.com/AbdulazizAlSayyed/" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/abdulazizalsayyed/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+          <a href="mailto:abdulazizsayed04@gmail.com">Email ↗</a>
         </div>
       </div>
 
-      <div class="hero-card">
+      <div class="hero-card reveal" style="transition-delay:.2s">
         <div class="terminal">
-          <div class="terminal-top"><span></span><span></span><span></span></div>
+          <div class="terminal-top"><span></span><span></span><span></span><small>developer.json</small></div>
           <pre><code><b>const</b> developer = {
-  name: <i>"Abdulaziz"</i>,
+  name: <i>"Abdulaziz Al Sayyed"</i>,
+  based_in: <i>"Lebanon"</i>,
   focus: [
-    <i>"AI"</i>,
-    <i>"Data Science"</i>,
-    <i>"Full-Stack"</i>
+    <i>"AI / LLM Systems"</i>,
+    <i>"NLP &amp; RAG"</i>,
+    <i>"Full-Stack Development"</i>,
+    <i>"Data Analytics"</i>
   ],
-  status: <i>"building..."</i>
+  currently: <i>"Grad Diploma, AI &amp; Data Science — AUB"</i>,
+  status: <i>"open to opportunities"</i>
 };</code></pre>
         </div>
       </div>
     </section>
 
+    <!-- ============ ABOUT ============ -->
     <section id="about" class="section">
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <p class="eyebrow">01 — ABOUT</p>
-        <h2>A developer who likes building things.</h2>
+        <h2>Software engineer with an AI &amp; data specialization.</h2>
       </div>
       <div class="about-grid">
-        <div>
+        <div class="reveal">
           <p>
-            I'm a Computer Science graduate with a strong interest in Artificial Intelligence,
-            Data Science, software engineering, and modern web development.
+            I'm a Computer Science graduate from the Lebanese American University (LAU), currently
+            completing a Graduate Professional Diploma in Artificial Intelligence &amp; Data Science
+            at the American University of Beirut (AUB).
           </p>
           <p>
-            My projects range from AI assistants and recommendation systems to full-stack
-            applications, mobile apps, dashboards, and game development.
+            My work sits at the intersection of AI/ML and full-stack engineering: building LLM-powered
+            and RAG-based applications, Arabic NLP systems, and scalable backend services with REST APIs,
+            real-time features, and relational and document databases. I'm equally comfortable analyzing
+            data and building the dashboards that communicate it, having spent time in a data analyst role
+            building KPI tracking and reporting systems.
+          </p>
+          <p>
+            I care about production-minded engineering — building things that actually run, are honestly
+            scoped, and hold up under real use rather than only working in a demo.
           </p>
         </div>
-        <div class="stats">
-          <div><strong>AI</strong><span>LLMs, NLP & RAG</span></div>
-          <div><strong>WEB</strong><span>Frontend & Backend</span></div>
-          <div><strong>DATA</strong><span>ML & Analytics</span></div>
-          <div><strong>GAME</strong><span>Unity Development</span></div>
+        <div class="stats reveal" style="transition-delay:.1s">
+          <div><strong>AI / ML</strong><span>LLMs, NLP, RAG &amp; Arabic NLP</span></div>
+          <div><strong>WEB</strong><span>Full-Stack &amp; Backend APIs</span></div>
+          <div><strong>DATA</strong><span>Analytics, KPI &amp; BI Dashboards</span></div>
+          <div><strong>SYSTEMS</strong><span>Parallel &amp; Networked Computing</span></div>
         </div>
       </div>
     </section>
 
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="experience" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">02 — EXPERIENCE</p>
+        <h2>Where I've worked.</h2>
+      </div>
+      <div class="timeline" id="experienceTimeline"></div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section id="education" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">03 — EDUCATION</p>
+        <h2>Academic background.</h2>
+      </div>
+      <div class="timeline" id="educationTimeline"></div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
     <section id="projects" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">02 — PROJECTS</p>
+      <div class="section-heading reveal">
+        <p class="eyebrow">04 — PROJECTS</p>
         <h2>Things I've built.</h2>
+        <p class="section-sub">
+          Every project links to its real GitHub repository. Status badges reflect what's actually
+          implemented — including projects that are frontend-only, team-built, or still in progress.
+        </p>
       </div>
-      <div class="project-grid">
-        <article class="project-card featured">
-          <div class="project-number">01</div>
-          <h3>Arabic Virtual AI Assistant</h3>
-          <p>Multi-task Arabic NLP assistant supporting translation, sentiment analysis, dialect detection, summarization, and RAG-based question answering.</p>
-          <div class="tags"><span>Python</span><span>Transformers</span><span>RAG</span><span>Streamlit</span></div>
-          <a href="#" class="project-link">GitHub ↗</a>
-        </article>
 
-        <article class="project-card">
-          <div class="project-number">02</div>
-          <h3>Craftsmen Network</h3>
-          <p>A professional platform connecting craftsmen with clients through profiles, portfolios, job postings, and real-time communication.</p>
-          <div class="tags"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Tailwind</span></div>
-          <a href="#" class="project-link">View project ↗</a>
-        </article>
-
-        <article class="project-card">
-          <div class="project-number">03</div>
-          <h3>CVision — Resume Critique</h3>
-          <p>An LLM-powered tool that analyzes resumes and provides structured feedback to improve applications.</p>
-          <div class="tags"><span>LLM</span><span>Python</span><span>NLP</span></div>
-          <a href="#" class="project-link">GitHub ↗</a>
-        </article>
-
-        <article class="project-card">
-          <div class="project-number">04</div>
-          <h3>Glass Tracking / MES</h3>
-          <p>A manufacturing tracking system for monitoring glass pieces across production stages using barcode/QR scanning and dashboards.</p>
-          <div class="tags"><span>Python</span><span>FastAPI</span><span>PySide6</span><span>SQL</span></div>
-          <a href="#" class="project-link">Case study ↗</a>
-        </article>
-
-        <article class="project-card">
-          <div class="project-number">05</div>
-          <h3>Unity Mobile Games</h3>
-          <p>Mobile game prototypes and coursework projects developed with Unity, focusing on gameplay systems and interactive experiences.</p>
-          <div class="tags"><span>Unity</span><span>C#</span><span>Game Dev</span></div>
-          <a href="#" class="project-link">View project ↗</a>
-        </article>
-
-        <article class="project-card">
-          <div class="project-number">06</div>
-          <h3>Recommendation Systems</h3>
-          <p>Machine-learning projects including restaurant and movie recommendation systems using data processing and ML techniques.</p>
-          <div class="tags"><span>Python</span><span>Scikit-learn</span><span>ML</span></div>
-          <a href="#" class="project-link">View project ↗</a>
-        </article>
-      </div>
+      <div class="filters reveal" id="projectFilters" role="tablist" aria-label="Filter projects by category"></div>
+      <div class="project-grid" id="projectGrid"></div>
     </section>
 
-    <section id="certifications" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">03 — CERTIFICATIONS & EDUCATION</p>
-        <h2>Credentials that support my work.</h2>
-      </div>
-      <div class="cert-list">
-        <article class="cert-card">
-          <div class="cert-icon">01</div>
-          <div>
-            <h3>Professional Graduate Diploma — AI & Data Science</h3>
-            <p>American University of Beirut (AUB)</p>
-            <span>Add certificate link / verification URL</span>
-          </div>
-        </article>
-        <article class="cert-card">
-          <div class="cert-icon">02</div>
-          <div>
-            <h3>Bachelor of Science — Computer Science</h3>
-            <p>Lebanese American University (LAU)</p>
-            <span>Add diploma / transcript link if desired</span>
-          </div>
-        </article>
-        <article class="cert-card">
-          <div class="cert-icon">03</div>
-          <div>
-            <h3>Full-Stack Development Program</h3>
-            <p>Digital Hub</p>
-            <span>Add certificate link / completion date</span>
-          </div>
-        </article>
-      </div>
-      <p class="small-note">Replace the placeholder certificate items above with your actual certificates and verification links.</p>
-    </section>
-
+    <!-- ============ SKILLS ============ -->
     <section id="skills" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">04 — SKILLS</p>
+      <div class="section-heading reveal">
+        <p class="eyebrow">05 — SKILLS</p>
         <h2>My toolbox.</h2>
       </div>
-      <div class="skills-grid">
-        <div><h3>Languages</h3><p>Python · JavaScript · Java · C · C++ · PHP · HTML · CSS</p></div>
-        <div><h3>AI / Data</h3><p>PyTorch · TensorFlow · Scikit-learn · Transformers · NLP · RAG</p></div>
-        <div><h3>Web</h3><p>Node.js · Express · React · Tailwind CSS · REST APIs · Socket.IO</p></div>
-        <div><h3>Databases</h3><p>MongoDB · MySQL · Firebase</p></div>
-        <div><h3>Tools</h3><p>Git · GitHub · Docker · Linux · VS Code</p></div>
-        <div><h3>Other</h3><p>Unity · Android · Flutter · OpenMP · CUDA · MPI</p></div>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </section>
+
+    <!-- ============ CERTIFICATIONS ============ -->
+    <section id="certifications" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">06 — CERTIFICATIONS</p>
+        <h2>Credentials that support my work.</h2>
+      </div>
+      <div class="cert-list" id="certList"></div>
+    </section>
+
+    <!-- ============ GITHUB ============ -->
+    <section id="github" class="section github-section">
+      <div class="github-box reveal">
+        <div>
+          <p class="eyebrow">07 — CODE</p>
+          <h2>Explore the code.</h2>
+          <p>Every project on this site links back to a real, browsable repository.</p>
+        </div>
+        <a class="btn primary" href="https://github.com/AbdulazizAlSayyed/" target="_blank" rel="noreferrer">
+          Visit GitHub Profile ↗
+        </a>
       </div>
     </section>
 
+    <!-- ============ CONTACT ============ -->
     <section id="contact" class="section contact-section">
-      <div class="contact-box">
-        <p class="eyebrow">05 — CONTACT</p>
+      <div class="contact-box reveal">
+        <p class="eyebrow">08 — CONTACT</p>
         <h2>Let's build something.</h2>
-        <p>I'm open to software engineering, AI, data, and development opportunities.</p>
+        <p>I'm open to software engineering, AI/ML, and data-focused opportunities.</p>
         <div class="actions">
-          <a class="btn primary" href="mailto:your.email@example.com">Email me</a>
-          <a class="btn secondary" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn primary" href="mailto:abdulazizsayed04@gmail.com">Email Me</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/abdulazizalsayyed/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn secondary" href="https://github.com/AbdulazizAlSayyed/" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn secondary" href="tel:+96170738343">+961 70 738 343</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
+    <div>
+      <strong>Abdulaziz Al Sayyed</strong>
+      <span>AI • Software Engineering • Full-Stack Development</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/AbdulazizAlSayyed/" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/abdulazizalsayyed/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="mailto:abdulazizsayed04@gmail.com">Email</a>
+    </div>
     <span>© <span id="year"></span> Abdulaziz Al Sayyed</span>
-    <span>Built with HTML, CSS & JavaScript.</span>
   </footer>
 
+  <!-- Project case-study modal -->
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
