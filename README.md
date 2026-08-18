@@ -1,74 +1,97 @@
-# Abdulaziz Al Sayyed — Portfolio
+# Abdulaziz Al Sayyed — Engineering Field Notes
 
-A dark, animated, single-page developer portfolio built with plain HTML, CSS and JavaScript
-(no framework, no build step, no dependencies).
+A static, editorial portfolio for AI, software engineering, full-stack development, and data work.
 
-## Project structure
+## What changed
 
-```
+The portfolio was redesigned around an **engineering field-notes / technical archive** visual language:
+
+- warm paper + ink palette with a restrained orange signal color
+- editorial serif display typography + monospaced technical metadata
+- asymmetric project composition instead of identical SaaS cards
+- project hierarchy: featured work + archive work
+- expandable case studies using native `<details>`
+- skills presented as capability groups instead of badge walls
+- technical labels, indexes, rules, and archive markers create the visual identity
+- no gradients, glassmorphism, particle effects, or decorative 3D objects
+
+## Critical rendering fix
+
+The previous implementation rendered important sections into empty HTML containers from JavaScript:
+
+- `#experienceTimeline`
+- `#educationTimeline`
+- `#projectGrid`
+- `#skillsGrid`
+- `#certList`
+
+That meant a JavaScript error, delayed execution, browser/PDF capture race, or other runtime problem could leave the section heading visible while the actual data container remained empty.
+
+The redesigned version moves all critical portfolio content into **real HTML in `index.html`**. JavaScript is now progressive enhancement only:
+
+- mobile navigation
+- active navigation state
+- project filtering
+- current year
+
+If JavaScript fails or is disabled, the portfolio content still exists and remains visible.
+
+## Files
+
+```text
 portfolio/
-├── index.html      # page structure (all sections)
-├── styles.css       # theme, layout, animations, responsive rules
-├── data.js          # all content — projects, experience, education, skills, certs
-├── script.js        # rendering, filtering, scroll reveal, modal, nav behavior
-└── assets/
-    └── Abdulaziz_AlSayyed_CV.pdf   # downloaded via the "Download CV" button
+├── index.html                 # complete semantic page + all visible portfolio content
+├── styles.css                 # editorial design system + responsive + print rules
+├── script.js                  # lightweight progressive enhancements only
+├── data.js                    # preserved portfolio data reference
+├── README.md
+└── RESPONSIVE_FIXES.md
 ```
-
-**To edit content** (add a project, fix a date, change a skill), edit `data.js` — you don't need
-to touch `index.html` or `script.js` for that.
 
 ## Run locally
 
-No build tools needed. Any static file server works:
+No build tools or dependencies are required.
 
 ```bash
-# Option 1 — Python
 python3 -m http.server 8000
-
-# Option 2 — Node (if you have npx)
-npx serve .
 ```
 
 Then open `http://localhost:8000`.
 
-Opening `index.html` directly by double-clicking also works, since there's no bundler or module
-system involved.
+## Editing content
 
-## Deploy to GitHub Pages
+The resilient runtime path intentionally keeps visible content in `index.html`, so changing `data.js` alone will not silently change what recruiters see. When editing portfolio facts, update the corresponding HTML content as well.
 
-1. Push this folder to a GitHub repository (e.g. `AbdulazizAlSayyed/portfolio`).
-2. In the repo, go to **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to `Deploy from a branch`.
-4. Choose the branch (usually `main`) and folder `/ (root)`, then **Save**.
-5. GitHub will publish the site at `https://AbdulazizAlSayyed.github.io/portfolio/` within a
-   couple of minutes.
+`data.js` is preserved as the structured content reference for future automation/build tooling.
 
-If you'd rather serve it at the root of `AbdulazizAlSayyed.github.io` (no `/portfolio/` path),
-put this code in a repo literally named `AbdulazizAlSayyed.github.io`.
+## Deployment
 
-## Environment variables
+The site is static and can be deployed directly to GitHub Pages, Netlify, Vercel static hosting, or any standard static web server.
 
-None. This is a fully static site — there's no backend, no API keys, and no build configuration.
+## Accessibility
 
-## Remaining TODOs (things I could not verify or that need your input)
+- semantic sections and headings
+- keyboard-operable navigation and native disclosure elements
+- visible focusable controls
+- accessible menu button labels/state
+- `prefers-reduced-motion` support
+- no critical content depends on animation
 
-- **Contact form**: none was added. The brief allowed a contact form only if it can genuinely
-  send email, and there's no backend here to do that — "Email Me" opens the visitor's mail client
-  instead. If you want a real form, the simplest options are a form-backend service (e.g. Formspree)
-  or wiring it to a small serverless function.
-- **EV Charging project (ChargeHub)**: I described this from its own README, but I could not verify
-  your specific individual contribution from the repository's commit history alone (it has a single
-  generic commit author). If you want your specific role called out in the case study, tell me what
-  you built and I'll add it precisely.
-- **CVision**: credited as a team project; I described your contribution as "GPT-3.5 integration and
-  structured prompt handling" per the repo's own contributor notes — confirm this is accurate.
-- **Sir-Escape (Unity game)**: excluded entirely. The repository only contains compiled build
-  binaries with no source files or README, so there was nothing factual to describe. If you have
-  the actual Unity project source somewhere, send it and I'll add a real entry.
-- **Live demos**: none are linked except the Capstone project's YouTube video (a real link found in
-  that repo). None of the other projects have a public deployment — nothing was invented here.
-- **Favicon**: not added. Drop a `favicon.ico` (or `favicon.svg`) in the project root and link it
-  in `<head>` if you want one.
-- **Analytics/SEO extras**: no Open Graph image or analytics snippet included — say the word if you
-  want them.
+## Verification
+
+The redesigned build was checked at:
+
+- 320 × 800
+- 375 × 900
+- 390 × 844
+- 430 × 932
+- 768 × 900
+- 820 × 1000
+- 1024 × 900
+- 1280 × 900
+- 1440 × 1000
+- 1920 × 1080
+
+The automated browser check reported **0px horizontal overflow at every tested viewport**, all 12 project cards and all 8 skill groups remained visible, and the JavaScript-disabled render still contained the same critical content.
+
+Print/PDF emulation also retained all 12 projects and all 8 skill groups.
