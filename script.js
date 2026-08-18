@@ -6,21 +6,22 @@
   const navLinks = [...document.querySelectorAll("#primaryNav a")];
 
   const filterBar = document.getElementById("projectFilters");
-  const projectCards = [...document.querySelectorAll(".project-card")];
+  const projectCards = [
+    ...document.querySelectorAll(".project-card")
+  ];
 
   const overlay = document.getElementById("modalOverlay");
   const modalBody = document.getElementById("modalBody");
   const modalClose = document.getElementById("modalClose");
 
-  const prefersReducedMotion =
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let lastFocusedElement = null;
 
 
-  /* =========================================================
-     MOBILE NAVIGATION
-     ========================================================= */
+  /* =====================================================
+     MOBILE NAV
+     ===================================================== */
 
-  function closeMobileNav() {
+  function closeMenu() {
     if (!nav || !menuButton) return;
 
     nav.classList.remove("mobile-open");
@@ -37,7 +38,7 @@
   }
 
 
-  function toggleMobileNav() {
+  function toggleMenu() {
     if (!nav || !menuButton) return;
 
     const open =
@@ -59,14 +60,14 @@
 
   menuButton?.addEventListener(
     "click",
-    toggleMobileNav
+    toggleMenu
   );
 
 
   navLinks.forEach(link => {
     link.addEventListener(
       "click",
-      closeMobileNav
+      closeMenu
     );
   });
 
@@ -74,32 +75,12 @@
   document.addEventListener(
     "click",
     event => {
-      if (!nav?.classList.contains("mobile-open")) {
-        return;
+      if (
+        nav?.classList.contains("mobile-open") &&
+        !nav.contains(event.target)
+      ) {
+        closeMenu();
       }
-
-      if (!nav.contains(event.target)) {
-        closeMobileNav();
-      }
-    }
-  );
-
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (event.key === "Escape") {
-        closeMobileNav();
-
-        if (
-          overlay &&
-          !overlay.hidden
-        ) {
-          closeModal();
-        }
-      }
-
     }
   );
 
@@ -107,155 +88,117 @@
   window.addEventListener(
     "resize",
     () => {
-
       if (window.innerWidth > 900) {
-        closeMobileNav();
+        closeMenu();
       }
-
     },
-    {
-      passive: true
-    }
+    { passive: true }
   );
 
 
-  /* =========================================================
-     ACTIVE NAVIGATION
-     ========================================================= */
+  /* =====================================================
+     ACTIVE NAV
+     ===================================================== */
 
-  const sections =
-    navLinks
-      .map(link =>
-        document.querySelector(
-          link.getAttribute("href")
-        )
+  const sections = navLinks
+    .map(link =>
+      document.querySelector(
+        link.getAttribute("href")
       )
-      .filter(Boolean);
-
-
-  let scrollTicking = false;
+    )
+    .filter(Boolean);
 
 
   function updateActiveNav() {
 
-    if (
-      !sections.length ||
-      scrollTicking
-    ) {
-      return;
+    const scrollPosition =
+      window.scrollY + 160;
+
+    let current =
+      sections[0];
+
+    for (const section of sections) {
+      if (
+        section.offsetTop <=
+        scrollPosition
+      ) {
+        current = section;
+      }
     }
 
-    scrollTicking = true;
+    navLinks.forEach(link => {
 
-    requestAnimationFrame(() => {
+      const active =
+        link.getAttribute("href") ===
+        `#${current.id}`;
 
-      const y =
-        window.scrollY + 150;
+      link.classList.toggle(
+        "active",
+        active
+      );
 
-      let current =
-        sections[0];
-
-
-      for (
-        const section of sections
-      ) {
-
-        if (
-          section.offsetTop <= y
-        ) {
-          current = section;
-        }
-
+      if (active) {
+        link.setAttribute(
+          "aria-current",
+          "page"
+        );
+      } else {
+        link.removeAttribute(
+          "aria-current"
+        );
       }
 
-
-      navLinks.forEach(link => {
-
-        const active =
-          link.getAttribute("href") ===
-          `#${current.id}`;
-
-
-        link.classList.toggle(
-          "active",
-          active
-        );
-
-
-        if (active) {
-
-          link.setAttribute(
-            "aria-current",
-            "page"
-          );
-
-        } else {
-
-          link.removeAttribute(
-            "aria-current"
-          );
-
-        }
-
-      });
-
-
-      scrollTicking = false;
-
     });
-
   }
 
 
+  let ticking = false;
+
   window.addEventListener(
     "scroll",
-    updateActiveNav,
-    {
-      passive: true
-    }
-  );
+    () => {
 
+      if (ticking) return;
 
-  window.addEventListener(
-    "resize",
-    updateActiveNav,
-    {
-      passive: true
-    }
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+
+    },
+    { passive: true }
   );
 
 
   updateActiveNav();
 
 
-  /* =========================================================
+  /* =====================================================
      FOOTER YEAR
-     ========================================================= */
+     ===================================================== */
 
   const year =
     document.getElementById("year");
 
-
   if (year) {
-
     year.textContent =
       new Date().getFullYear();
-
   }
 
 
-  /* =========================================================
-     PROJECT FILTERING
+  /* =====================================================
+     PROJECT FILTER
      
      IMPORTANT:
-     Project cards already exist in index.html.
+     Cards already exist in HTML.
+     JS ONLY filters them.
+     ===================================================== */
 
-     JavaScript ONLY controls visibility.
-
-     It does NOT create the cards.
-     ========================================================= */
-
-  function applyProjectFilter(filter) {
+  function filterProjects(
+    category
+  ) {
 
     projectCards.forEach(card => {
 
@@ -263,25 +206,20 @@
         (
           card.dataset.categories ||
           ""
-        ).split(",");
-
+        )
+        .split(",")
+        .map(value =>
+          value.trim()
+        );
 
       const visible =
-        filter === "all" ||
-        categories.includes(filter);
-
+        category === "all" ||
+        categories.includes(category);
 
       card.hidden =
         !visible;
 
-
-      card.setAttribute(
-        "aria-hidden",
-        String(!visible)
-      );
-
     });
-
   }
 
 
@@ -294,16 +232,11 @@
           ".filter-btn"
         );
 
+      if (!button) return;
 
-      if (!button) {
-        return;
-      }
-
-
-      const filter =
+      const category =
         button.dataset.filter ||
         "all";
-
 
       filterBar
         .querySelectorAll(
@@ -314,12 +247,10 @@
           const active =
             item === button;
 
-
           item.classList.toggle(
             "active",
             active
           );
-
 
           item.setAttribute(
             "aria-selected",
@@ -328,24 +259,15 @@
 
         });
 
-
-      applyProjectFilter(
-        filter
-      );
+      filterProjects(category);
 
     }
   );
 
 
-  /* =========================================================
+  /* =====================================================
      CASE STUDY MODAL
-     
-     The actual case-study information already exists
-     inside each project card in index.html.
-     ========================================================= */
-
-  let lastFocusedElement = null;
-
+     ===================================================== */
 
   function openModal(
     projectId,
@@ -357,7 +279,6 @@
         `case-${projectId}`
       );
 
-
     if (
       !source ||
       !overlay ||
@@ -365,7 +286,6 @@
     ) {
       return;
     }
-
 
     lastFocusedElement =
       trigger ||
@@ -379,48 +299,39 @@
 
 
     const title =
-      card
-        ?.querySelector("h3")
-        ?.textContent ||
+      card?.querySelector("h3")
+        ?.textContent
+        ?.trim() ||
       "Project case study";
 
 
     const status =
-      card
-        ?.querySelector(
-          ".status-badge"
-        )
+      card?.querySelector(
+        ".status-badge"
+      )
         ?.textContent
         ?.trim() ||
       "";
 
 
-    modalBody.innerHTML = "";
+    modalBody.replaceChildren();
 
 
     const heading =
-      document.createElement(
-        "h3"
-      );
-
+      document.createElement("h3");
 
     heading.id =
       "modalTitle";
-
 
     heading.textContent =
       title;
 
 
     const statusElement =
-      document.createElement(
-        "p"
-      );
-
+      document.createElement("p");
 
     statusElement.className =
       "modal-status";
-
 
     statusElement.textContent =
       status;
@@ -429,12 +340,9 @@
     const content =
       source.cloneNode(true);
 
-
     content.hidden = false;
 
-    content.removeAttribute(
-      "id"
-    );
+    content.removeAttribute("id");
 
     content.classList.remove(
       "case-study"
@@ -448,9 +356,7 @@
     );
 
 
-    overlay.hidden =
-      false;
-
+    overlay.hidden = false;
 
     document.body.classList.add(
       "modal-open"
@@ -463,7 +369,6 @@
         "open"
       );
 
-
       modalClose?.focus();
 
     });
@@ -473,15 +378,11 @@
 
   function closeModal() {
 
-    if (!overlay) {
-      return;
-    }
-
+    if (!overlay) return;
 
     overlay.classList.remove(
       "open"
     );
-
 
     document.body.classList.remove(
       "modal-open"
@@ -489,28 +390,20 @@
 
 
     const delay =
-      prefersReducedMotion
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches
         ? 0
         : 250;
 
 
-    window.setTimeout(
-      () => {
+    window.setTimeout(() => {
 
-        overlay.hidden =
-          true;
+      overlay.hidden = true;
 
+      modalBody?.replaceChildren();
 
-        if (modalBody) {
-
-          modalBody.innerHTML =
-            "";
-
-        }
-
-      },
-      delay
-    );
+    }, delay);
 
 
     if (
@@ -518,37 +411,32 @@
       typeof lastFocusedElement.focus ===
         "function"
     ) {
-
       lastFocusedElement.focus();
-
     }
 
   }
 
 
-  projectCards.forEach(
-    card => {
+  projectCards.forEach(card => {
 
-      const button =
-        card.querySelector(
-          "[data-open]"
-        );
-
-
-      button?.addEventListener(
-        "click",
-        event => {
-
-          openModal(
-            event.currentTarget.dataset.open,
-            event.currentTarget
-          );
-
-        }
+    const button =
+      card.querySelector(
+        "[data-open]"
       );
 
-    }
-  );
+    button?.addEventListener(
+      "click",
+      () => {
+
+        openModal(
+          button.dataset.open,
+          button
+        );
+
+      }
+    );
+
+  });
 
 
   modalClose?.addEventListener(
@@ -564,141 +452,26 @@
       if (
         event.target === overlay
       ) {
-
         closeModal();
-
       }
 
     }
   );
 
 
-  /* =========================================================
-     PROGRESSIVE MOTION
-     
-     IMPORTANT:
-     There is NO hidden initial state.
+  document.addEventListener(
+    "keydown",
+    event => {
 
-     If IntersectionObserver fails:
-     content stays visible.
-
-     If JavaScript fails:
-     content stays visible.
-
-     If reduced motion is enabled:
-     content stays visible.
-     ========================================================= */
-
-  const animatedElements = [
-    ...document.querySelectorAll(
-      [
-        ".hero-copy > *",
-        ".hero-card",
-        ".section-heading",
-        ".about-grid > *",
-        ".timeline-item",
-        ".project-card",
-        ".skill-card",
-        ".cert-card",
-        ".github-box",
-        ".contact-box"
-      ].join(", ")
-    )
-  ];
-
-
-  if (
-    !prefersReducedMotion &&
-    "IntersectionObserver" in window
-  ) {
-
-    animatedElements.forEach(
-      (element, index) => {
-
-        element.style.setProperty(
-          "--reveal-delay",
-          `${Math.min(
-            index * 25,
-            180
-          )}ms`
-        );
-
-
-        element.classList.add(
-          "enhance-motion"
-        );
-
+      if (
+        event.key === "Escape"
+      ) {
+        closeModal();
+        closeMenu();
       }
-    );
 
-
-    const observer =
-      new IntersectionObserver(
-        entries => {
-
-          entries.forEach(
-            entry => {
-
-              if (
-                !entry.isIntersecting
-              ) {
-                return;
-              }
-
-
-              entry.target.classList.add(
-                "motion-ready"
-              );
-
-
-              observer.unobserve(
-                entry.target
-              );
-
-            }
-          );
-
-        },
-        {
-          threshold: 0.08,
-
-          rootMargin:
-            "0px 0px -40px 0px"
-        }
-      );
-
-
-    animatedElements.forEach(
-      element =>
-        observer.observe(element)
-    );
-
-  }
-
-
-  /* =========================================================
-     ORIENTATION CHANGE
-     ========================================================= */
-
-  window.addEventListener(
-    "orientationchange",
-    () => {
-
-      window.setTimeout(
-        () => {
-
-          closeMobileNav();
-
-          updateActiveNav();
-
-        },
-        100
-      );
-
-    },
-    {
-      passive: true
     }
   );
+
 
 })();
